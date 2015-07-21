@@ -42,11 +42,11 @@ while(True):
         print "True"
         uid = followers["ids"][num]
         break
-print uid
-req = session.get("https://api.twitter.com/1.1/users/lookup.json",params = {"user_id": uid })
-detail = json.loads(req.text)
-uname = detail[0]["screen_name"]
+if uid != "":
+    req = session.get("https://api.twitter.com/1.1/users/lookup.json",params = {"user_id": uid })
+    detail = json.loads(req.text)
+    uname = detail[0]["screen_name"]
 
-req = session.post("https://api.twitter.com/1.1/friendships/create.json",data={"user_id" : uid})
-tweetstr = "@"  + str(uname)+ " フォローありがとうございます！よろしくお願いします！！"
-req = session.post("https://api.twitter.com/1.1/statuses/update.json",data={"status" : tweetstr})
+    req = session.post("https://api.twitter.com/1.1/friendships/create.json",data={"user_id" : uid})
+    tweetstr = "@"  + str(uname)+ " フォローありがとうございます！よろしくお願いします！！"
+    req = session.post("https://api.twitter.com/1.1/statuses/update.json",data={"status" : tweetstr})
