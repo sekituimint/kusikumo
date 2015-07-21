@@ -48,7 +48,7 @@ while(True):
         print "入ったああああああああああああああああああああ"
         break    
 retweeturl  = 'https://api.twitter.com/1.1/statuses/retweet/' + tweetid + '.json'
-#req = session.post(retweeturl,data={"trim_user":"true"})
-#req = session.post("https://api.twitter.com/1.1/friendships/create.json",data={"screen_name" : uname})
+req = session.post(retweeturl,data={"trim_user":"true"})
+req = session.post("https://api.twitter.com/1.1/friendships/create.json",data={"screen_name" : uname})
 tweetstr = "@"  + str(uname)+ " はじめまして！twitter初心者なのですがぜひ相互フォローお願いします！"
-#req = session.post("https://api.twitter.com/1.1/statuses/update.json",data={"status" : tweetstr})
+req = session.post("https://api.twitter.com/1.1/statuses/update.json",data={"status" : tweetstr})
