@@ -18,23 +18,37 @@ params = {
     "q": unicode(u"#RTした人全員フォローする"),
     "lang": "ja",
     "result_type": "recent",
-    "count": "30"
+    "count": "100"
     }
 req = session.get(searchurl,params = params)
 tweets = json.loads(req.text)
 
+req = session.get("https://api.twitter.com/1.1/friends/ids.json",params = {})
+
+follows = json.loads(req.text)
+print follows["ids"][0]
+print len(follows["ids"])
 uname = ""
 tweetid = ""
 while(True):
-    num = random.randint(0,29)
+    num = random.randint(0,99)
     if tweets["statuses"][num][u'text'][0] == 'R' and tweets["statuses"][num][u'text'][1] == 'T':
         uname = tweets["statuses"][num]['entities'][u'user_mentions'][0][u'screen_name']
+        uid = tweets["statuses"][num]['entities'][u'user_mentions'][0]['id']
+        print uid 
     else:
         uname = tweets["statuses"][num][u'user'][u'screen_name']
-    tweetid = tweets["statuses"][num][u'id_str']
-    break    
+        uid = tweets["statuses"][num][u'user'][u'id']
+        print uid
+    if uid in follows["ids"]:
+        print "やり直しいいいいいいいいいいいいいいいいいいい"
+        continue
+    else:
+        tweetid = tweets["statuses"][num][u'id_str']
+        print "入ったああああああああああああああああああああ"
+        break    
 retweeturl  = 'https://api.twitter.com/1.1/statuses/retweet/' + tweetid + '.json'
-req = session.post(retweeturl,data={"trim_user":"true"})
-req = session.post("https://api.twitter.com/1.1/friendships/create.json",data={"screen_name" : uname})
+#req = session.post(retweeturl,data={"trim_user":"true"})
+#req = session.post("https://api.twitter.com/1.1/friendships/create.json",data={"screen_name" : uname})
 tweetstr = "@"  + str(uname)+ " はじめまして！twitter初心者なのですがぜひ相互フォローお願いします！"
-req = session.post("https://api.twitter.com/1.1/statuses/update.json",data={"status" : tweetstr})
+#req = session.post("https://api.twitter.com/1.1/statuses/update.json",data={"status" : tweetstr})
