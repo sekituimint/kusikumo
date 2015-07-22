@@ -31,9 +31,9 @@ while(True):
     if timelines[num]["text"][0] == 'R' and timelines[num]["text"][1] == 'T':
         if u"はRT" in timelines[num]["text"] or u"人RT" in timelines[num]["text"] or u"繋がりたい" in timelines[num]["text"]:
             if timelines[num]["user"]["id_str"] in follows["ids"]:
-                #print "フォローしてた"
+                print "フォローしてた"
             elif timelines[num]["user"]["screen_name"] == "H_I_R_A_I_I":
-                #print "自分だった"
+                print "自分だった"
             else:
                 #print "フォローしてなかった"
                 uid = timelines[num]['entities']['user_mentions'][0]["id_str"]
